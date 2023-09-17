@@ -1,0 +1,21 @@
+pipeline{
+    agent any
+    stages{
+        stage("Git Checkout"){
+            steps{
+                git url:"https://github.com/maryjanebarger/jenkins-pipeline-ansible-war-to-tomcat"
+            }
+        }
+        stage("Maven Compile and Package WAR file"){
+            steps{
+                sh "mvn clean package"
+            }
+        }
+        stage('Deploy to Tomcat'){
+      
+            sshagent(['tomcat-dev']) {
+                sh 'scp -o StrictHostKeyChecking=no target/*.war labsuser@172.31.29.242:/opt/tomcat/webapps/'
+            }
+        }
+    }
+}
