@@ -1,4 +1,4 @@
-- hosts: 172.31.43.111
+- hosts: tomcat
   become: yes
   tasks:
     - name: copy war file to tomcat
