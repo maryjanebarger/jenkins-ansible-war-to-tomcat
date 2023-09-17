@@ -3,7 +3,7 @@ pipeline{
     stages{
         stage("Git Checkout"){
             steps{
-                git url:"https://github.com/maryjanebarger/jenkins-pipeline-ansible-war-to-tomcat"
+                git url:"https://github.com/maryjanebarger/jenkins-ansible-war-to-tomcat"
             }
         }
         stage("Maven Compile and Package WAR file"){
