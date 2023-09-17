@@ -9,12 +9,18 @@ pipeline{
         stage("Maven Compile and Package WAR file"){
             steps{
                 sh "mvn clean package"
+                sh "mv target/*.war target/myweb.war"
             }
         }
         stage('Deploy to Tomcat'){
-      
-            sshagent(['tomcat-dev']) {
-                sh 'scp -o StrictHostKeyChecking=no target/*.war labsuser@172.31.29.242:/opt/tomcat/webapps/'
+            steps{
+                sshagent(['tomcat-new']) {
+                    sh 'scp -o StrictHostKeyChecking=no target/*.war labsuser@172.31.43.111:/opt/tomcat/webapps/'
+                    
+                    sh 'ssh labsuser@172.31.43.111 /opt/tomcat/bin/shutdown.sh'
+                    
+                    sh 'ssh labsuser@172.31.43.111 /opt/tomcat/bin/startup.sh'
+                }
             }
         }
     }
