@@ -1,28 +1,34 @@
 ---
 - name: Update packages
-  hosts: localhost  # Target the localhost as it's a local operation
+  hosts: localhost
   tasks:
-    - name: Update packages on macOS using Homebrew
-      become: no
-      command: brew update
-      when: ansible_system == 'Darwin'
+    - name: Update packages on master node
+      become: yes
+      apt: pkg={{ item }}
+      with_items:
+        - maven
+        - apache2
 
     - name: Verify Maven installation
       command: mvn --version
       register: maven_version_output
-      changed_when: false  # Mark as not changed to prevent unnecessary runs
+      changed_when: false       # Mark as not changed to prevent unnecessary runs
 
     - name: Display Maven version
       debug:
         var: maven_version_output.stdout_lines
 
-    - name: Clone or Copy Java Project to the local Server
+    - name: Clone Java Project to the Server
       git:
         repo: https://github.com/maryjanebarger/jenkins-ansible-war-to-tomcat.git
         dest: /tmp/war_dir
 
-    - name: Change Directory to the Project and create .war file
-      become_user: libsuser
-      become_method: su
+    - name: Change irectories to the project and build .war file
+#       become_user: labsuser
+#       become_method: su
       become: yes
       shell: cd /tmp/war_dir && mvn clean package
+
+    - name: Rename war file
+      become: yes
+      shell: cd /tmp/war_dir/target && mv *.war /tmp/war_dir/target/myweb.war
