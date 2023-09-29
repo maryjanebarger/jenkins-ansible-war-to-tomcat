@@ -3,7 +3,7 @@
   hosts: localhost
   tasks:
     - name: Update packages on master node
-      become: yes
+#      become: yes
       apt: pkg={{ item }}
       with_items:
         - maven
@@ -25,10 +25,10 @@
 
     - name: Change irectories to the project and build .war file
 #       become_user: labsuser
-#       become_method: su
-      become: yes
+#      become_method: su
+#      become: yes
       shell: cd /tmp/war_dir && mvn clean package
 
     - name: Rename war file
-      become: yes
+#      become: yes
       shell: cd /tmp/war_dir/target && mv *.war /tmp/war_dir/target/myweb.war
