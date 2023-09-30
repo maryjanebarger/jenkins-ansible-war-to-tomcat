@@ -3,11 +3,12 @@
   hosts: localhost
   tasks:
     - name: Clone Java Project to the Server
+      become: yes
       git:
         repo: https://github.com/maryjanebarger/jenkins-ansible-war-to-tomcat.git
         dest: /tmp/war_dir
 
-    - name: Change irectories to the project and build .war file
+    - name: Change directories to the project and build .war file
 #       become_user: labsuser
 #      become_method: su
       become: yes
