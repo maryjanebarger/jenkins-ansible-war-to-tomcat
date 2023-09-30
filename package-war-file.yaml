@@ -2,6 +2,8 @@
 - name: Update packages
   hosts: localhost
   become: yes
+  vars:
+    ansible_become_user: admin
   tasks:
     - name: Clone Java Project to the Server
       git:
