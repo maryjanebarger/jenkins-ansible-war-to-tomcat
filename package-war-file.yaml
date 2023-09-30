@@ -1,6 +1,7 @@
 ---
 - name: Update packages
   hosts: localhost
+  become: yes
   tasks:
     - name: Clone Java Project to the Server
       git:
