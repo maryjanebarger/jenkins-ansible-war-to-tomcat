@@ -10,7 +10,7 @@
 
     - name: Change directories to the project and build .war file
 #       become_user: labsuser
-#      become_method: su
+      become_method: su
       become: yes
       shell: cd /tmp/war_dir && mvn clean package
 
