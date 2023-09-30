@@ -2,21 +2,6 @@
 - name: Update packages
   hosts: localhost
   tasks:
-    - name: Update packages on master node
-      become: yes
-      apt: pkg={{ item }}
-      with_items:
-        - maven
-
-    - name: Verify Maven installation
-      command: mvn --version
-      register: maven_version_output
-      changed_when: false       # Mark as not changed to prevent unnecessary runs
-
-    - name: Display Maven version
-      debug:
-        var: maven_version_output.stdout_lines
-
     - name: Clone Java Project to the Server
       git:
         repo: https://github.com/maryjanebarger/jenkins-ansible-war-to-tomcat.git
