@@ -15,3 +15,11 @@
 
     - name: Rename war file
       shell: cd /tmp/war_dir/target && mv *.war /tmp/war_dir/target/myweb.war
+
+    - name: copy war file to tomcat
+      copy:
+        src: "../target/{{ lookup('env','WAR_FILE') }}"
+        dest: /opt/tomcat/webapps/myweb.war
+      notify:
+        - stop tomcat
+        - start tomcat
