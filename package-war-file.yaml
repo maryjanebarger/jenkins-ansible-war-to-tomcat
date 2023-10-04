@@ -1,7 +1,7 @@
 ---
 - name: Update packages
-  hosts: localhost
-  become: yes
+  hosts: webserver
+  become: true
   vars:
     ansible_become_user: admin
     ansible_ssh_user: jenkins
@@ -11,14 +11,11 @@
       git:
         repo: https://github.com/maryjanebarger/jenkins-ansible-war-to-tomcat.git
         dest: /tmp/war_dir
-      become: yes
 
     - name: Change directories to the project and build .war file
       shell: mvn clean package
       args:
         chdir: /tmp/war_dir
-      become: yes
 
     - name: Rename war file
-      become: yes
       shell: cd /tmp/war_dir/target && mv *.war /tmp/war_dir/target/myweb.war
