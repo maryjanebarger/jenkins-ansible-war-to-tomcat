@@ -1,0 +1,8 @@
+---
+- hosts: webserver
+  become: true
+  tasks:
+  - name: update the apt-get repo
+    command: sudo apt-get update
+  - name: Install maven on worker nodes
+    package: name=maven state=present
