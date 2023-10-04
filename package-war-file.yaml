@@ -14,11 +14,11 @@
         chdir: /tmp/war_dir
 
     - name: Rename war file
-      shell: cd /tmp/war_dir/target && mv *.war /tmp/war_dir/target/myweb.war
+      shell: cd /tmp/war_dir/target && mv *.war /tmp/war_dir/myweb.war
 
     - name: copy war file to tomcat
       copy:
-        src: /tmp/war_dir/target/myweb.war
+        src: /tmp/war_dir/myweb.war
         dest: /opt/tomcat/webapps/myweb.war remote_src=yes
       notify:
         - stop tomcat
