@@ -19,7 +19,7 @@
     - name: copy war file to tomcat
       copy:
         src: /tmp/war_dir/target/myweb.war
-        dest: /opt/tomcat/webapps/myweb.war
+        dest: /opt/tomcat/webapps/myweb.war remote_src=yes
       notify:
         - stop tomcat
         - start tomcat
