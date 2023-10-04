@@ -6,3 +6,7 @@
     command: sudo apt-get update
   - name: Install maven on worker nodes
     package: name=maven state=present
+  - name: Install Apache2
+    package: name=apache2 state=present
+  - name: Start Apache2
+    package: name=apache2 state restarted
