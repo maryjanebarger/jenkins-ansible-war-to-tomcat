@@ -7,11 +7,7 @@
   - name: Install maven on worker nodes
     package: name=maven state=present
   - name: Install Apache2
-    apt: name=apache2 update_cache=yes state=latest
-  - name: Enable mod_rewrite
-    apache2_module: name=rewrite state=present
-    notify:
-      - restart apache2
+    package: name=apache2 state=latest
   handlers:
     - name: restart apache2
-    service: name=apache2 state=restarted
+      service: name=apache2 state=restarted
