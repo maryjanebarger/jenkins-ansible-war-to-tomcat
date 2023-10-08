@@ -1,7 +1,7 @@
 pipeline{
     agent any
     stages{
-        stage("Git Checkout"){
+        stage("Clone a repo"){
             steps{
                 git url:"https://github.com/maryjanebarger/jenkins-ansible-war-to-tomcat"
             }
